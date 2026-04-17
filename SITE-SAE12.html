@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Compétences R&T - Expert Mode</title>
+    <title>Portfolio RT | Référentiel National Compétences</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <style>
@@ -16,7 +16,6 @@
             --text-main: #f8fafc;
             --text-mute: #64748b;
             --border: rgba(255, 255, 255, 0.05);
-            --glass: rgba(15, 23, 42, 0.7);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,41 +28,41 @@
             overflow: hidden;
         }
 
-        /* --- SIDEBAR : COMPÉTENCES PN --- */
+        /* --- SIDEBAR COMPÉTENCES --- */
         aside {
-            width: 350px;
+            width: 380px;
             background: var(--sidebar);
             border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            padding: 30px;
+            padding: 25px;
             overflow-y: auto;
         }
 
-        .brand { font-weight: 800; font-size: 1.2rem; letter-spacing: -1px; margin-bottom: 40px; color: var(--primary); }
-        .brand span { color: var(--text-main); }
+        .brand { font-weight: 800; font-size: 1.1rem; margin-bottom: 30px; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        .brand i { width: 10px; height: 10px; background: var(--secondary); border-radius: 50%; display: inline-block; }
 
-        .nav-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--text-mute); letter-spacing: 1px; margin-bottom: 15px; display: block; }
+        .nav-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: var(--text-mute); letter-spacing: 1.5px; margin: 20px 0 10px; }
 
-        .comp-link {
-            background: transparent;
+        .comp-card {
+            background: rgba(255,255,255,0.02);
             border: 1px solid var(--border);
-            padding: 15px;
+            padding: 18px;
             border-radius: 12px;
             margin-bottom: 12px;
             cursor: pointer;
-            transition: 0.2s;
-            text-align: left;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .comp-link:hover { border-color: var(--primary); background: rgba(99, 102, 241, 0.05); }
-        .comp-link.active { border-color: var(--primary); background: var(--primary); }
-        .comp-link.active * { color: white !important; }
+        .comp-card:hover { border-color: var(--primary); background: rgba(99, 102, 241, 0.05); }
+        .comp-card.active { border-color: var(--primary); background: var(--primary); }
+        .comp-card.active * { color: white !important; }
 
-        .comp-link h4 { font-size: 0.9rem; margin-bottom: 5px; color: var(--primary); }
-        .comp-link p { font-size: 0.75rem; color: var(--text-mute); line-height: 1.3; }
+        .comp-card h4 { font-size: 0.85rem; margin-bottom: 6px; color: var(--secondary); font-family: 'Fira Code'; }
+        .comp-card .bilan-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-top: 10px; display: block; }
+        .comp-card .bilan-desc { font-size: 0.75rem; color: var(--text-mute); line-height: 1.4; }
 
         /* --- MAIN CONTENT --- */
-        main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        main { flex: 1; display: flex; flex-direction: column; background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 70%); }
 
         header {
             padding: 20px 40px;
@@ -71,212 +70,186 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--glass);
             backdrop-filter: blur(10px);
         }
 
-        .view-filters { display: flex; gap: 10px; background: #1e293b; padding: 5px; border-radius: 8px; }
+        .filter-group { display: flex; background: #1e293b; padding: 4px; border-radius: 8px; }
         .filter-btn {
-            padding: 6px 15px;
-            border: none;
-            background: transparent;
-            color: var(--text-mute);
-            font-size: 0.8rem;
-            font-weight: 600;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.2s;
+            padding: 6px 16px; border: none; background: transparent; color: var(--text-mute);
+            font-size: 0.75rem; font-weight: 700; border-radius: 6px; cursor: pointer;
         }
-        .filter-btn.active { background: var(--sidebar); color: var(--text-main); box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .filter-btn.active { background: var(--sidebar); color: var(--text-main); }
 
-        .content-area { padding: 40px; overflow-y: auto; flex: 1; }
+        .content-scroll { padding: 40px; overflow-y: auto; }
 
-        /* --- RESOURCE CARDS --- */
-        .semester-block { margin-bottom: 50px; }
-        .semester-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 25px; display: flex; align-items: center; gap: 15px; }
-        .semester-title::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+        .semester-section { margin-bottom: 60px; }
+        .semester-header { 
+            font-size: 0.8rem; font-weight: 800; text-transform: uppercase; 
+            letter-spacing: 3px; color: var(--primary); margin-bottom: 25px;
+            display: flex; align-items: center; gap: 20px;
+        }
+        .semester-header::after { content: ""; flex: 1; height: 1px; background: var(--border); }
 
-        .resources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
-
-        .res-card {
-            background: var(--sidebar);
+        /* --- RESOURCE GRID --- */
+        .res-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 15px; }
+        
+        .res-item {
+            background: rgba(15, 23, 42, 0.6);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
+            border-radius: 12px;
+            padding: 20px;
             transition: 0.3s;
-            position: relative;
         }
-        .res-card:hover { transform: translateY(-5px); border-color: var(--secondary); }
-        .res-card.dim { opacity: 0.15; filter: grayscale(1); }
+        .res-item:hover { border-color: var(--secondary); transform: translateY(-3px); background: rgba(15, 23, 42, 0.9); }
+        .res-item.dim { opacity: 0.1; filter: grayscale(1); pointer-events: none; }
 
-        .res-code { font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--secondary); margin-bottom: 8px; display: block; }
-        .res-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 12px; }
-        .res-desc { font-size: 0.85rem; color: var(--text-mute); margin-bottom: 20px; line-height: 1.6; }
+        .res-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .res-id { font-family: 'Fira Code'; font-size: 0.75rem; color: var(--accent); font-weight: 600; }
+        .res-title { font-size: 0.95rem; font-weight: 700; flex: 1; margin-left: 12px; }
 
-        .bilan-tag {
-            background: rgba(6, 182, 212, 0.1);
-            border-left: 3px solid var(--secondary);
-            padding: 10px;
-            font-size: 0.8rem;
-            color: var(--text-main);
-            border-radius: 0 8px 8px 0;
-        }
+        .res-info { font-size: 0.8rem; color: var(--text-mute); line-height: 1.5; margin-bottom: 15px; }
 
-        .comp-pills { display: flex; gap: 6px; margin-top: 15px; }
-        .pill { font-size: 0.6rem; padding: 2px 8px; border-radius: 4px; background: #1e293b; color: var(--text-mute); font-weight: 800; }
-        .pill.match { background: var(--primary); color: white; }
+        .tag-row { display: flex; flex-wrap: wrap; gap: 6px; border-top: 1px solid var(--border); padding-top: 12px; }
+        .tag { font-size: 0.6rem; padding: 2px 8px; background: #1e293b; border-radius: 4px; color: var(--text-mute); font-weight: 700; }
+        .tag.active { background: var(--primary); color: white; }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
     </style>
 </head>
 <body>
 
     <aside>
-        <div class="brand">R&T<span>PORTFOLIO</span></div>
+        <div class="brand"><i></i> RT.<span>SYSTEM</span></div>
         
-        <span class="nav-label">Compétences Nationales</span>
-        
-        <button class="comp-link active" id="btn-all" onclick="filterByComp('all')">
-            <h4>Toutes les ressources</h4>
-            <p>Vue d'ensemble de la formation</p>
-        </button>
+        <span class="nav-label">Programme National (PN)</span>
 
-        <button class="comp-link" id="btn-C1" onclick="filterByComp('C1')">
-            <h4>RT1-C1 : Administrer</h4>
-            <p>Administration des systèmes, réseaux et services internet sécurisés.</p>
-        </button>
+        <div class="comp-card active" onclick="filterByComp('all', this)">
+            <h4>GLOBAL_VIEW</h4>
+            <p class="bilan-desc">Toutes les ressources S1/S2</p>
+        </div>
 
-        <button class="comp-link" id="btn-C2" onclick="filterByComp('C2')">
-            <h4>RT1-C2 : Connecter</h4>
-            <p>Connexion des entreprises, des usagers et des objets.</p>
-        </button>
+        <div class="comp-card" onclick="filterByComp('C1', this)">
+            <h4>RT1-C1 : ADMINISTRER</h4>
+            <span class="bilan-title">Bilan de compétence :</span>
+            <p class="bilan-desc">Maîtrise de l'administration des systèmes Linux/Windows et des services réseaux essentiels (DNS, DHCP, Web). Capacité à gérer un parc informatique.</p>
+        </div>
 
-        <button class="comp-link" id="btn-C3" onclick="filterByComp('C3')">
-            <h4>RT1-C3 : Créer</h4>
-            <p>Développement d'outils informatiques et d'applications RT.</p>
-        </button>
+        <div class="comp-card" onclick="filterByComp('C2', this)">
+            <h4>RT1-C2 : CONNECTER</h4>
+            <span class="bilan-title">Bilan de compétence :</span>
+            <p class="bilan-desc">Installation et configuration d'infrastructures LAN/WAN. Maîtrise de la commutation, du routage et des technologies de transmission (Fibre, Cuivre, Sans-fil).</p>
+        </div>
 
-        <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border);">
-            <p style="font-size: 0.7rem; color: var(--text-mute);">IUT de l'Artois<br>Département Réseaux & Télécoms</p>
+        <div class="comp-card" onclick="filterByComp('C3', this)">
+            <h4>RT1-C3 : CRÉER</h4>
+            <span class="bilan-title">Bilan de compétence :</span>
+            <p class="bilan-desc">Développement d'applications métier pour les R&T. Automatisation de tâches réseau via Python et création d'interfaces de supervision Web.</p>
         </div>
     </aside>
 
     <main>
         <header>
-            <div class="view-filters">
-                <button class="filter-btn active" onclick="filterSemestre('all', this)">Tous</button>
-                <button class="filter-btn" onclick="filterSemestre('S1', this)">Semestre 1</button>
-                <button class="filter-btn" onclick="filterSemestre('S2', this)">Semestre 2</button>
+            <div class="filter-group">
+                <button class="filter-btn active" onclick="filterSem('all', this)">S1 & S2</button>
+                <button class="filter-btn" onclick="filterSem('S1', this)">SEMESTRE 1</button>
+                <button class="filter-btn" onclick="filterSem('S2', this)">SEMESTRE 2</button>
             </div>
-            <div id="status-clock" style="font-family: 'Fira Code'; font-size: 0.8rem; color: var(--secondary);">SYSTÈME OPÉRATIONNEL</div>
+            <div style="font-size: 0.7rem; font-family: 'Fira Code'; color: var(--text-mute)">RT_STATUS: <span style="color: #4ade80">ENCRYPTED_ACCESS</span></div>
         </header>
 
-        <div class="content-area" id="main-scroll">
-            
-            <section class="semester-block" id="block-S1">
-                <h2 class="semester-title">Semestre 01</h2>
-                <div class="resources-grid" id="grid-S1"></div>
-            </section>
+        <div class="content-scroll">
+            <div class="semester-section" id="S1-sec">
+                <h2 class="semester-header">Semestre 01</h2>
+                <div class="res-grid" id="S1-grid"></div>
+            </div>
 
-            <section class="semester-block" id="block-S2">
-                <h2 class="semester-title">Semestre 02</h2>
-                <div class="resources-grid" id="grid-S2"></div>
-            </section>
-
+            <div class="semester-section" id="S2-sec">
+                <h2 class="semester-header">Semestre 02</h2>
+                <div class="res-grid" id="S2-grid"></div>
+            </div>
         </div>
     </main>
 
 <script>
-    const resources = [
+    const data = [
         // SEMESTRE 1
-        { sem: "S1", code: "R101", name: "Initiation Réseaux", comps: ["C1"], desc: "Bases du modèle OSI et câblage.", bilan: "Maîtrise de la configuration d'interfaces et adressage statique." },
-        { sem: "S1", code: "R102", name: "Admin. Système", comps: ["C1"], desc: "Installation de Linux et commandes shell.", bilan: "Autonomie complète sur CLI Debian." },
-        { sem: "S1", code: "R103", name: "Architecture Numérique", comps: ["C3"], desc: "Bases de l'électronique et logique.", bilan: "Compréhension des cycles CPU." },
-        { sem: "S1", code: "R107", name: "Fondamentaux Dévelop.", comps: ["C3"], desc: "Algorithmique et Python.", bilan: "Création de scripts d'automatisation." },
-        
+        { s: "S1", id: "R101", t: "Initiation aux Réseaux", c: ["C1", "C2"], d: "Architecture OSI, adressage IPv4, configuration d'équipements Cisco de base." },
+        { s: "S1", id: "R102", t: "Systèmes d'Exploitation", c: ["C1"], d: "Utilisation de Linux (Debian) en CLI, gestion des droits et fichiers." },
+        { s: "S1", id: "R103", t: "Architecture des Ordinateurs", c: ["C3"], d: "Circuits logiques, assembleur et fonctionnement interne du CPU." },
+        { s: "S1", id: "R107", t: "Développement Python", c: ["C3"], d: "Bases de l'algorithmique et scripts d'automatisation système." },
+        { s: "S1", id: "R108", t: "Bases de données", c: ["C3"], d: "Conception SQL et modélisation de données (Entité/Association)." },
+        { s: "S1", id: "R112", t: "Anglais Technique", c: ["C1", "C2", "C3"], d: "Communication pro et lecture de RFC techniques." },
+
         // SEMESTRE 2
-        { sem: "S2", code: "R201", name: "Tech. Internet", comps: ["C1", "C2"], desc: "Routage RIP/OSPF et NAT.", bilan: "Capacité à interconnecter des LAN distants." },
-        { sem: "S2", code: "R202", name: "Admin. Système Avancée", comps: ["C1"], desc: "Services DNS, DHCP, Web Apache.", bilan: "Configuration sécurisée de serveurs de prod." },
-        { sem: "S2", code: "R204", name: "Téléphonie IP", comps: ["C2"], desc: "Protocoles SIP et Asterisk.", bilan: "Mise en place d'un autocommutateur IP." },
-        { sem: "S2", code: "R205", name: "Réseaux d'Accès", comps: ["C2"], desc: "Fibres optiques et réseaux WAN.", bilan: "Soudure de fibre et mesures photométriques." },
-        { sem: "S2", code: "R209", name: "Dévelop. Web", comps: ["C3"], desc: "Fullstack JS et Bases de données.", bilan: "Déploiement d'une application de monitoring." }
+        { s: "S2", id: "R201", t: "Technologies Internet", c: ["C1", "C2"], d: "Protocoles de routage (RIP, OSPF) et fonctionnement de TCP/UDP." },
+        { s: "S2", id: "R202", t: "Admin Services Réseau", c: ["C1"], d: "Mise en place de serveurs DHCP, DNS (Bind9) et Web (Apache/Nginx)." },
+        { s: "S2", id: "R203", t: "Sécurité & Cryptographie", c: ["C1"], d: "Bases de la sécurité, hachage, chiffrement symétrique et asymétrique." },
+        { s: "S2", id: "R204", t: "Téléphonie d'Entreprise", c: ["C2"], d: "Installation de PABX IP et protocoles de voix sur IP (VoIP)." },
+        { s: "S2", id: "R205", t: "Réseaux d'Accès & WAN", c: ["C2"], d: "Etude des liens fibre (FTTH), ADSL et technologies opérateurs." },
+        { s: "S2", id: "R209", t: "Développement Web", c: ["C3"], d: "Création d'interfaces web dynamiques (HTML/CSS/JS/PHP)." },
+        { s: "S2", id: "R211", t: "Droit & Gestion", c: ["C1"], d: "Protection des données (RGPD) et droit du numérique." },
+        { s: "S2", id: "R213", t: "Maths des signaux", c: ["C2"], d: "Transformées de Fourier et analyse fréquentielle des signaux." }
     ];
 
-    let currentCompFilter = 'all';
-
-    function init() {
-        renderGrid('S1');
-        renderGrid('S2');
-    }
-
-    function renderGrid(semester) {
-        const grid = document.getElementById(`grid-${semester}`);
-        grid.innerHTML = '';
-        
-        resources.filter(r => r.sem === semester).forEach(res => {
-            const card = document.createElement('div');
-            card.className = 'res-card';
-            card.dataset.comps = res.comps.join(' ');
-            
-            card.innerHTML = `
-                <span class="res-code">${res.code}</span>
-                <h3 class="res-name">${res.name}</h3>
-                <p class="res-desc">${res.desc}</p>
-                <div class="bilan-tag"><strong>Bilan :</strong> ${res.bilan}</div>
-                <div class="comp-pills">
-                    ${res.comps.map(c => `<span class="pill" data-c="${c}">${c}</span>`).join('')}
-                </div>
-            `;
-            grid.appendChild(card);
+    function render() {
+        ['S1', 'S2'].forEach(sem => {
+            const grid = document.getElementById(`${sem}-grid`);
+            grid.innerHTML = '';
+            data.filter(item => item.s === sem).forEach(res => {
+                const card = document.createElement('div');
+                card.className = 'res-item';
+                card.dataset.comps = res.c.join(' ');
+                card.innerHTML = `
+                    <div class="res-head">
+                        <span class="res-id">${res.id}</span>
+                        <h3 class="res-title">${res.t}</h3>
+                    </div>
+                    <p class="res-info">${res.d}</p>
+                    <div class="tag-row">
+                        ${res.c.map(tag => `<span class="tag" data-t="${tag}">${tag}</span>`).join('')}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
         });
     }
 
-    function filterByComp(compId) {
-        currentCompFilter = compId;
-        
-        // Update Sidebar UI
-        document.querySelectorAll('.comp-link').forEach(l => l.classList.remove('active'));
-        document.getElementById(`btn-${compId}`).classList.add('active');
+    function filterByComp(compId, btn) {
+        document.querySelectorAll('.comp-card').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
 
-        // Apply dimming logic
-        document.querySelectorAll('.res-card').forEach(card => {
-            const cardComps = card.dataset.comps.split(' ');
-            const pills = card.querySelectorAll('.pill');
-
+        document.querySelectorAll('.res-item').forEach(item => {
+            const tags = item.querySelectorAll('.tag');
             if (compId === 'all') {
-                card.classList.remove('dim');
-                pills.forEach(p => p.classList.remove('match'));
+                item.classList.remove('dim');
+                tags.forEach(t => t.classList.remove('active'));
             } else {
-                if (cardComps.includes(compId)) {
-                    card.classList.remove('dim');
-                    pills.forEach(p => {
-                        if(p.dataset.c === compId) p.classList.add('match');
-                        else p.classList.remove('match');
-                    });
+                const itemComps = item.dataset.comps.split(' ');
+                if (itemComps.includes(compId)) {
+                    item.classList.remove('dim');
+                    tags.forEach(t => t.dataset.t === compId ? t.classList.add('active') : t.classList.remove('active'));
                 } else {
-                    card.classList.add('dim');
+                    item.classList.add('dim');
                 }
             }
         });
     }
 
-    function filterSemestre(sem, btn) {
+    function filterSem(sem, btn) {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
-        if (sem === 'all') {
-            document.getElementById('block-S1').style.display = 'block';
-            document.getElementById('block-S2').style.display = 'block';
+        if(sem === 'all') {
+            document.getElementById('S1-sec').style.display = 'block';
+            document.getElementById('S2-sec').style.display = 'block';
         } else {
-            document.getElementById('block-S1').style.display = sem === 'S1' ? 'block' : 'none';
-            document.getElementById('block-S2').style.display = sem === 'S2' ? 'block' : 'none';
+            document.getElementById('S1-sec').style.display = sem === 'S1' ? 'block' : 'none';
+            document.getElementById('S2-sec').style.display = sem === 'S2' ? 'block' : 'none';
         }
     }
 
-    init();
+    render();
 </script>
 
 </body>
