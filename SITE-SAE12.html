@@ -232,3 +232,15 @@
 
             overlay.style.display = 'block';
             panel.classList.add('active');
+        }
+
+        // FERMETURE
+        closeBtn.onclick = () => {
+            overlay.style.display = 'none';
+            panel.classList.remove('active');
+        };
+        overlay.onclick = closeBtn.onclick;
+
+    </script>
+</body>
+</html>
