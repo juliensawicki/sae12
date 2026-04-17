@@ -3,831 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAE 1.02 - Infrastructure Réseau</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Electrolize&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Portfolio R&T - Bilan de Compétences</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary-pink: #ff006e;
-            --primary-purple: #8338ec;
-            --primary-blue: #3a86ff;
-            --primary-red: #fb5607;
-            --bg-dark: #0a0e27;
-            --bg-darker: #050814;
-            --text-light: #e0e7ff;
+            --accent: #8338ec;
+            --accent-pink: #ff006e;
+            --bg: #050814;
+            --card-bg: rgba(131, 56, 236, 0.05);
+            --text: #e0e7ff;
             --text-dim: #94a3b8;
-            --accent-glow: rgba(131, 56, 236, 0.4);
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Rajdhani', sans-serif;
-            background: var(--bg-darker);
-            color: var(--text-light);
-            overflow-x: hidden;
+            background-color: var(--bg);
+            color: var(--text);
             line-height: 1.6;
+            overflow-x: hidden;
         }
-        
-        /* Background Animation */
-        .bg-animation {
+
+        /* Background Cyber */
+        .bg-grid {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            overflow: hidden;
-            background: radial-gradient(circle at 20% 50%, rgba(131, 56, 236, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(255, 0, 110, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 20%, rgba(58, 134, 255, 0.1) 0%, transparent 50%);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent, var(--bg)),
+                        radial-gradient(circle at 50% 50%, rgba(131, 56, 236, 0.1), transparent);
+            z-index: -1;
         }
-        
-        .grid-overlay {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(131, 56, 236, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(131, 56, 236, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridScroll 20s linear infinite;
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+
+        header { text-align: center; margin-bottom: 80px; }
+        h1 { font-family: 'Orbitron', sans-serif; font-size: 3rem; color: var(--text); letter-spacing: 4px; }
+        .subtitle { color: var(--accent-pink); text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
+
+        /* Section Compétences */
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
         }
-        
-        @keyframes gridScroll {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(50px); }
+
+        .comp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .comp-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(131, 56, 236, 0.2);
+            padding: 25px;
+            border-radius: 12px;
+            transition: 0.3s;
         }
-        
-        .floating-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.3;
-            animation: float 15s ease-in-out infinite;
-        }
-        
-        .orb-1 {
-            width: 400px;
-            height: 400px;
-            background: var(--primary-purple);
-            top: 10%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-        
-        .orb-2 {
-            width: 300px;
-            height: 300px;
-            background: var(--primary-pink);
-            bottom: 20%;
-            right: 10%;
-            animation-delay: 3s;
-        }
-        
-        .orb-3 {
-            width: 350px;
-            height: 350px;
-            background: var(--primary-blue);
-            top: 50%;
-            right: 40%;
-            animation-delay: 6s;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(50px, -50px) scale(1.1); }
-            66% { transform: translate(-30px, 30px) scale(0.9); }
-        }
-        
-        /* Main Container */
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-        
-        /* Header */
-        header {
-            padding: 60px 0 40px;
-            position: relative;
-        }
-        
-        .header-top {
+        .comp-card:hover { border-color: var(--accent-pink); transform: translateY(-5px); }
+        .comp-card h3 { color: var(--accent); margin-bottom: 10px; font-family: 'Orbitron'; font-size: 1.1rem; }
+        .bilan { font-style: italic; color: var(--text-dim); border-left: 2px solid var(--accent-pink); padding-left: 10px; margin-top: 10px; }
+
+        /* Ressources */
+        .ressource-list { display: flex; flex-direction: column; gap: 10px; }
+        .ressource-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 80px;
-            opacity: 0;
-            animation: fadeInDown 1s ease forwards;
+            border: 1px solid transparent;
+            transition: 0.2s;
         }
-        
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary-pink), var(--primary-purple), var(--primary-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 3px;
-        }
-        
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 24px;
-            background: rgba(131, 56, 236, 0.1);
-            border: 1px solid rgba(131, 56, 236, 0.3);
-            border-radius: 50px;
-            font-family: 'Electrolize', sans-serif;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--primary-pink);
-            border-radius: 50%;
-            animation: pulse 2s ease infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 60px 0 120px;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.3s forwards;
-        }
-        
-        .hero-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(3rem, 8vw, 6.5rem);
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, #fff 0%, var(--primary-purple) 50%, var(--primary-pink) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -2px;
-        }
-        
-        .hero-subtitle {
-            font-family: 'Electrolize', sans-serif;
-            font-size: clamp(1.2rem, 3vw, 2rem);
-            color: var(--text-dim);
-            margin-bottom: 20px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-        }
-        
-        .hero-description {
-            font-size: 1.3rem;
-            color: var(--text-dim);
-            max-width: 800px;
-            margin-bottom: 50px;
-            line-height: 1.8;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            padding: 18px 45px;
-            background: linear-gradient(135deg, var(--primary-pink), var(--primary-purple));
-            color: white;
-            text-decoration: none;
-            font-family: 'Electrolize', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 40px rgba(131, 56, 236, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s ease;
-        }
-        
-        .cta-button:hover::before {
-            left: 100%;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 50px rgba(131, 56, 236, 0.6);
-        }
-        
-        /* Grid Section */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin: 100px 0;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.6s forwards;
-        }
-        
-        .feature-card {
-            background: rgba(131, 56, 236, 0.05);
-            border: 1px solid rgba(131, 56, 236, 0.2);
-            border-radius: 16px;
-            padding: 40px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(131, 56, 236, 0.1));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-purple);
-            box-shadow: 0 20px 60px rgba(131, 56, 236, 0.3);
-        }
-        
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            display: block;
-            filter: drop-shadow(0 0 20px currentColor);
-        }
-        
-        .feature-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--text-light);
-            position: relative;
-        }
-        
-        .feature-description {
-            color: var(--text-dim);
-            font-size: 1rem;
-            line-height: 1.7;
-            position: relative;
-        }
-        
-        /* Technical Specs */
-        .tech-specs {
-            margin: 120px 0;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.9s forwards;
-        }
-        
-        .section-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 900;
-            margin-bottom: 60px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .specs-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        
-        .spec-item {
-            background: linear-gradient(135deg, rgba(131, 56, 236, 0.1), rgba(58, 134, 255, 0.05));
-            border-left: 3px solid var(--primary-purple);
+        .ressource-item:hover { background: rgba(131, 56, 236, 0.1); border-color: var(--accent); }
+        .res-code { font-weight: bold; color: var(--accent-pink); width: 60px; }
+        .res-name { flex-grow: 1; margin-left: 20px; }
+
+        /* Modal / Detail Panel */
+        #detail-panel {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 90%; max-width: 600px;
+            background: #0a0e27;
+            border: 2px solid var(--accent);
             padding: 30px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            border-radius: 15px;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
         }
-        
-        .spec-item:hover {
-            transform: translateX(10px);
-            border-left-color: var(--primary-pink);
-            background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(131, 56, 236, 0.1));
+        #detail-panel.active { display: block; transform: translate(-50%, -50%) scale(1); animation: fadeIn 0.3s ease; }
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 99; display: none;
         }
-        
-        .spec-label {
-            font-family: 'Electrolize', sans-serif;
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
-        
-        .spec-value {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--text-light);
-        }
-        
-        /* Timeline */
-        .timeline {
-            margin: 120px 0;
-            opacity: 0;
-            animation: fadeInUp 1s ease 1.2s forwards;
-        }
-        
-        .timeline-container {
-            position: relative;
-            padding-left: 50px;
-        }
-        
-        .timeline-line {
-            position: absolute;
-            left: 20px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, var(--primary-purple), var(--primary-pink));
-        }
-        
-        .timeline-item {
-            position: relative;
-            margin-bottom: 50px;
-            padding-left: 30px;
-        }
-        
-        .timeline-dot {
-            position: absolute;
-            left: -30px;
-            top: 8px;
-            width: 12px;
-            height: 12px;
-            background: var(--primary-purple);
-            border-radius: 50%;
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-        
-        .timeline-phase {
-            font-family: 'Electrolize', sans-serif;
-            font-size: 0.9rem;
-            color: var(--primary-pink);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-        }
-        
-        .timeline-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--text-light);
-        }
-        
-        .timeline-description {
-            color: var(--text-dim);
-            line-height: 1.7;
-        }
-        
-        /* Footer */
-        footer {
-            margin-top: 150px;
-            padding: 60px 0 40px;
-            border-top: 1px solid rgba(131, 56, 236, 0.2);
-            text-align: center;
-            opacity: 0;
-            animation: fadeIn 1s ease 1.5s forwards;
-        }
-        
-        .footer-text {
-            font-family: 'Electrolize', sans-serif;
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-        }
-        
-        .footer-highlight {
-            color: var(--primary-purple);
-            font-weight: 600;
-        }
-        
-        /* Animations */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        
-        /* Scroll Reveal */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 20px;
-            }
-            
-            .header-top {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .timeline-container {
-                padding-left: 30px;
-            }
-        }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: var(--bg-darker);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--primary-purple), var(--primary-pink));
-            border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, var(--primary-pink), var(--primary-purple));
+        .close-btn { position: absolute; top: 15px; right: 15px; cursor: pointer; color: var(--accent-pink); font-weight: bold; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .tag {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin: 5px 5px 0 0;
+            font-family: 'Orbitron';
         }
     </style>
 </head>
 <body>
-    <!-- Background Animation -->
-    <div class="bg-animation">
-        <div class="grid-overlay"></div>
-        <div class="floating-orb orb-1"></div>
-        <div class="floating-orb orb-2"></div>
-        <div class="floating-orb orb-3"></div>
-    </div>
 
-    <!-- Main Content -->
+    <div class="bg-grid"></div>
+
     <div class="container">
         <header>
-            <div class="header-top">
-                <div class="logo">R&T • IUT</div>
-                <div class="status-badge">
-                    <span class="status-dot"></span>
-                    <span>Projet Actif</span>
-                </div>
-            </div>
+            <p class="subtitle">B.U.T. Réseaux & Télécommunications</p>
+            <h1>PORTFOLIO SYSTÈME & RÉSEAU</h1>
         </header>
 
-        <section class="hero">
-            <div class="hero-subtitle">SAE 1.02 — Semestre 1</div>
-            <h1 class="hero-title">S'initier aux<br>Réseaux Informatiques</h1>
-            <p class="hero-description">
-                Conception et déploiement d'une infrastructure réseau complète pour une petite entreprise. 
-                De la planification à la mise en œuvre, découvrez notre approche professionnelle du réseau.
-            </p>
-            <a href="#features" class="cta-button">Explorer le Projet</a>
-        </section>
-
-        <section id="features" class="features-grid">
-            <div class="feature-card">
-                <span class="feature-icon" style="color: var(--primary-pink);">🌐</span>
-                <h3 class="feature-title">Architecture Réseau</h3>
-                <p class="feature-description">
-                    Conception d'une topologie réseau sécurisée et segmentée avec VLANs pour isoler les différents départements de l'entreprise.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <span class="feature-icon" style="color: var(--primary-purple);">⚡</span>
-                <h3 class="feature-title">Configuration Active</h3>
-                <p class="feature-description">
-                    Déploiement de routeurs Cisco série 800 et switches Cisco 2960 avec configuration DHCP, DNS et routage inter-VLAN.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <span class="feature-icon" style="color: var(--primary-blue);">🔒</span>
-                <h3 class="feature-title">Sécurité & Isolation</h3>
-                <p class="feature-description">
-                    Mise en place de 4 VLANs dédiés (ADMIN, PERSONNEL, PRODUCTION, VIDEO) garantissant la séparation des flux et la sécurité.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <span class="feature-icon" style="color: var(--primary-red);">🖥️</span>
-                <h3 class="feature-title">Services Réseau</h3>
-                <p class="feature-description">
-                    Intégration d'un serveur web Apache, serveur DHCP et DNS pour une infrastructure complète et fonctionnelle.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <span class="feature-icon" style="color: var(--primary-pink);">📡</span>
-                <h3 class="feature-title">Simulation & Tests</h3>
-                <p class="feature-description">
-                    Maquettes virtuelles développées avec Cisco Packet Tracer et GNS3, suivies de tests exhaustifs en environnement réel.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <span class="feature-icon" style="color: var(--primary-purple);">📊</span>
-                <h3 class="feature-title">Documentation</h3>
-                <p class="feature-description">
-                    Rapports techniques détaillés en Markdown, schémas réseau professionnels et captures de trames pour analyse approfondie.
-                </p>
-            </div>
-        </section>
-
-        <section class="tech-specs reveal">
-            <h2 class="section-title">Spécifications Techniques</h2>
-            <div class="specs-container">
-                <div class="spec-item">
-                    <div class="spec-label">Équipements</div>
-                    <div class="spec-value">Cisco 800 / 2960</div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-label">VLANs</div>
-                    <div class="spec-value">4 Segments + VLAN800</div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-label">Adressage</div>
-                    <div class="spec-value">IPv4 Privé</div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-label">Services</div>
-                    <div class="spec-value">DHCP / DNS / HTTP</div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-label">Protocoles</div>
-                    <div class="spec-value">TCP/IP Stack</div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-label">Simulation</div>
-                    <div class="spec-value">Packet Tracer / GNS3</div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-label">Virtualisation</div>
-                    <div class="spec-value">VM Linux & Windows</div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-label">Connectivité</div>
-                    <div class="spec-value">Internet via VLAN800</div>
+        <h2 class="section-title">MES COMPÉTENCES (PN)</h2>
+        <div class="comp-grid">
+            <div class="comp-card">
+                <h3>RT1-C1 : Administrer</h3>
+                <p>Administrer les réseaux et l’Internet.</p>
+                <div class="bilan">
+                    <strong>Bilan :</strong> Capable de configurer des services réseaux de base (DHCP, DNS) et d'assurer la connectivité de niveau 3. Maîtrise de l'administration système Linux/Windows.
                 </div>
             </div>
-        </section>
-
-        <section class="timeline reveal">
-            <h2 class="section-title">Phases du Projet</h2>
-            <div class="timeline-container">
-                <div class="timeline-line"></div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-phase">Phase 1 — Planification</div>
-                    <h3 class="timeline-title">Recherche & Schématisation</h3>
-                    <p class="timeline-description">
-                        Analyse des besoins, recherche documentaire sur les équipements Cisco, élaboration du schéma réseau avec draw.io et définition du plan d'adressage IPv4.
-                    </p>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-phase">Phase 2 — Simulation</div>
-                    <h3 class="timeline-title">Maquette Virtuelle</h3>
-                    <p class="timeline-description">
-                        Création de la maquette réseau sous Cisco Packet Tracer et GNS3, configuration complète des équipements, tests de connectivité et documentation des résultats.
-                    </p>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-phase">Phase 3 — Virtualisation</div>
-                    <h3 class="timeline-title">Environnement VM</h3>
-                    <p class="timeline-description">
-                        Déploiement de machines virtuelles Linux et Windows, installation et configuration du serveur web Apache, tests d'accès et validation des services.
-                    </p>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-phase">Phase 4 — Déploiement</div>
-                    <h3 class="timeline-title">Maquette Physique</h3>
-                    <p class="timeline-description">
-                        Mise en œuvre de la maquette finale avec assistance d'étudiants RT2, configuration des VLANs, captures de trames, tests exhaustifs et soutenance technique.
-                    </p>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-phase">Phase 5 — Évaluation</div>
-                    <h3 class="timeline-title">Validation Finale</h3>
-                    <p class="timeline-description">
-                        Présentation orale du projet, démonstration du fonctionnement conforme au cahier des charges, évaluation collective et individuelle par les enseignants.
-                    </p>
+            <div class="comp-card">
+                <h3>RT1-C2 : Connecter</h3>
+                <p>Connecter les entreprises et les usagers.</p>
+                <div class="bilan">
+                    <strong>Bilan :</strong> Maîtrise du câblage structuré, de la configuration de commutateurs (VLAN) et des bases de la téléphonie IP.
                 </div>
             </div>
-        </section>
+            <div class="comp-card">
+                <h3>RT1-C3 : Créer</h3>
+                <p>Créer des outils et applications informatiques.</p>
+                <div class="bilan">
+                    <strong>Bilan :</strong> Développement de scripts d'automatisation en Python et création d'interfaces web dynamiques pour la gestion de données.
+                </div>
+            </div>
+        </div>
 
-        <footer>
-            <p class="footer-text">
-                Projet SAE 1.02 — <span class="footer-highlight">Réseaux & Télécommunications</span><br>
-                IUT de l'Artois • Semestre 1 • 2026
-            </p>
-        </footer>
+        <h2 class="section-title">RESSOURCES & APPRENTISSAGES</h2>
+        <div class="ressource-list" id="res-container">
+            </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <div id="detail-panel">
+        <span class="close-btn" id="close">X FERMER</span>
+        <h2 id="modal-title" style="color: var(--accent-pink); font-family: 'Orbitron';"></h2>
+        <p id="modal-desc" style="margin: 15px 0; color: var(--text);"></p>
+        <hr style="border: 0; border-top: 1px solid #333; margin: 15px 0;">
+        <h4 style="font-family: 'Orbitron'; font-size: 0.9rem;">COMPÉTENCES VISÉES (PN) :</h4>
+        <div id="modal-tags"></div>
     </div>
 
     <script>
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Scroll reveal animation
-        function reveal() {
-            const reveals = document.querySelectorAll('.reveal');
-            
-            for (let i = 0; i < reveals.length; i++) {
-                const windowHeight = window.innerHeight;
-                const elementTop = reveals[i].getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add('active');
-                }
+        // DONNÉES DES RESSOURCES
+        const ressources = [
+            {
+                code: "R201",
+                nom: "Technologie de l'Internet",
+                description: "Étude approfondie du modèle TCP/IP, du routage statique et dynamique. Mise en œuvre de protocoles de communication standard.",
+                competences: ["RT1-C1", "RT1-C2"]
+            },
+            {
+                code: "R202",
+                nom: "Administration système",
+                description: "Installation et configuration de serveurs Windows et Linux. Gestion des droits, des utilisateurs et des services critiques.",
+                competences: ["RT1-C1"]
+            },
+            {
+                code: "R209",
+                nom: "Initiation au développement Web",
+                description: "Apprentissage du HTML5, CSS3 et JavaScript pour créer des interfaces d'administration et de monitoring.",
+                competences: ["RT1-C3"]
+            },
+            {
+                code: "R210",
+                nom: "Anglais Technique",
+                description: "Communication professionnelle en milieu international. Rédaction de documentations techniques et rapports d'incidents.",
+                competences: ["RT1-C1", "RT1-C2"]
+            },
+            {
+                code: "R213",
+                nom: "Mathématiques des systèmes",
+                description: "Outils mathématiques pour le traitement du signal et l'analyse de données réseaux.",
+                competences: ["RT1-C2", "RT1-C3"]
             }
-        }
+        ];
 
-        window.addEventListener('scroll', reveal);
-        reveal(); // Initial check
+        const container = document.getElementById('res-container');
+        const overlay = document.getElementById('overlay');
+        const panel = document.getElementById('detail-panel');
+        const closeBtn = document.getElementById('close');
 
-        // Parallax effect for floating orbs
-        document.addEventListener('mousemove', (e) => {
-            const orbs = document.querySelectorAll('.floating-orb');
-            const mouseX = e.clientX / window.innerWidth;
-            const mouseY = e.clientY / window.innerHeight;
+        // GÉNÉRATION DE LA LISTE
+        ressources.forEach(res => {
+            const div = document.createElement('div');
+            div.className = 'ressource-item';
+            div.innerHTML = `
+                <span class="res-code">${res.code}</span>
+                <span class="res-name">${res.nom}</span>
+                <span style="color: var(--accent)">+ Détails</span>
+            `;
+            div.onclick = () => showDetail(res);
+            container.appendChild(div);
+        });
+
+        // FONCTION AFFICHAGE MODAL
+        function showDetail(res) {
+            document.getElementById('modal-title').innerText = `${res.code} - ${res.nom}`;
+            document.getElementById('modal-desc').innerText = res.description;
             
-            orbs.forEach((orb, index) => {
-                const speed = (index + 1) * 20;
-                const x = mouseX * speed;
-                const y = mouseY * speed;
-                
-                orb.style.transform = `translate(${x}px, ${y}px)`;
+            const tagContainer = document.getElementById('modal-tags');
+            tagContainer.innerHTML = '';
+            res.competences.forEach(c => {
+                const span = document.createElement('span');
+                span.className = 'tag';
+                span.innerText = c;
+                tagContainer.appendChild(span);
             });
-        });
 
-        // Dynamic gradient on feature cards
-        const cards = document.querySelectorAll('.feature-card');
-        cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = ((e.clientX - rect.left) / rect.width) * 100;
-                const y = ((e.clientY - rect.top) / rect.height) * 100;
-                
-                card.style.setProperty('--mouse-x', `${x}%`);
-                card.style.setProperty('--mouse-y', `${y}%`);
-                
-                const gradient = `radial-gradient(circle at ${x}% ${y}%, rgba(255, 0, 110, 0.15), transparent 50%)`;
-                card.style.background = gradient;
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.background = '';
-            });
-        });
-
-        // Animated counter for specs (optional enhancement)
-        const observerOptions = {
-            threshold: 0.5,
-            rootMargin: '0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.spec-item').forEach(item => {
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(20px)';
-            item.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-            observer.observe(item);
-        });
-
-        // Timeline animation on scroll
-        const timelineObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateX(0)';
-                    }, index * 100);
-                }
-            });
-        }, { threshold: 0.2 });
-
-        document.querySelectorAll('.timeline-item').forEach(item => {
-            item.style.opacity = '0';
-            item.style.transform = 'translateX(-30px)';
-            item.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-            timelineObserver.observe(item);
-        });
-
-        // Add shimmer effect to hero title
-        const heroTitle = document.querySelector('.hero-title');
-        let shimmerPosition = 0;
-        
-        setInterval(() => {
-            shimmerPosition += 1;
-            if (shimmerPosition > 200) shimmerPosition = 0;
-            heroTitle.style.backgroundPosition = `${shimmerPosition}% center`;
-        }, 30);
-
-        // Console easter egg
-        console.log('%c🌐 SAE 1.02 - Réseaux & Télécommunications', 'color: #8338ec; font-size: 20px; font-weight: bold;');
-        console.log('%cConception par un futur professionnel R&T', 'color: #ff006e; font-size: 14px;');
-        console.log('%cIUT de l\'Artois • 2026', 'color: #3a86ff; font-size: 12px;');
-    </script>
-</body>
-</html>
+            overlay.style.display = 'block';
+            panel.classList.add('active');
