@@ -3,244 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio R&T - Bilan de Compétences</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>Expertise R&T | Portfolio Compétences</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500&family=Inter:wght@300;400;700;900&family=Lexend+Exa:wght@200;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --accent: #8338ec;
-            --accent-pink: #ff006e;
-            --bg: #050814;
-            --card-bg: rgba(131, 56, 236, 0.05);
-            --text: #e0e7ff;
-            --text-dim: #94a3b8;
+            --bg: #030712;
+            --primary: #6366f1;
+            --secondary: #ec4899;
+            --surface: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-mute: #94a3b8;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Rajdhani', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg);
-            color: var(--text);
+            color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 100% 100%, rgba(236, 72, 153, 0.1) 0%, transparent 40%);
         }
 
-        /* Background Cyber */
-        .bg-grid {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, transparent, var(--bg)),
-                        radial-gradient(circle at 50% 50%, rgba(131, 56, 236, 0.1), transparent);
-            z-index: -1;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
-
-        header { text-align: center; margin-bottom: 80px; }
-        h1 { font-family: 'Orbitron', sans-serif; font-size: 3rem; color: var(--text); letter-spacing: 4px; }
-        .subtitle { color: var(--accent-pink); text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
-
-        /* Section Compétences */
-        .section-title {
-            font-family: 'Orbitron', sans-serif;
-            margin: 40px 0 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--accent);
+        /* HEADER */
+        header { margin-bottom: 80px; position: relative; }
+        .badge {
             display: inline-block;
+            padding: 4px 12px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
         }
+        h1 { font-family: 'Lexend Exa', sans-serif; font-size: clamp(2rem, 5vw, 4rem); font-weight: 800; line-height: 1; margin-bottom: 20px; }
+        .hero-desc { max-width: 600px; color: var(--text-mute); font-size: 1.1rem; }
 
-        .comp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        /* GRID SYSTEM */
+        .dashboard { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; }
+
+        /* COMPETENCIES CARDS */
+        .section-title { font-family: 'Lexend Exa', sans-serif; font-size: 0.8rem; text-transform: uppercase; color: var(--text-mute); margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+        .section-title::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
         .comp-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(131, 56, 236, 0.2);
-            padding: 25px;
-            border-radius: 12px;
-            transition: 0.3s;
-        }
-        .comp-card:hover { border-color: var(--accent-pink); transform: translateY(-5px); }
-        .comp-card h3 { color: var(--accent); margin-bottom: 10px; font-family: 'Orbitron'; font-size: 1.1rem; }
-        .bilan { font-style: italic; color: var(--text-dim); border-left: 2px solid var(--accent-pink); padding-left: 10px; margin-top: 10px; }
-
-        /* Ressources */
-        .ressource-list { display: flex; flex-direction: column; gap: 10px; }
-        .ressource-item {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 15px 20px;
-            border-radius: 8px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .comp-card:hover { border-color: var(--primary); background: rgba(99, 102, 241, 0.05); }
+        .comp-card.active { border-color: var(--secondary); box-shadow: 0 0 30px rgba(236, 72, 153, 0.1); }
+        
+        .comp-card h3 { font-size: 1.25rem; margin-bottom: 8px; color: var(--primary); }
+        .bilan-text { font-size: 0.9rem; color: var(--text-mute); margin-top: 12px; line-height: 1.5; border-top: 1px solid var(--border); padding-top: 12px; }
+
+        /* RESOURCES LIST */
+        .res-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid transparent;
-            transition: 0.2s;
+            flex-direction: column;
+            transition: 0.3s;
+            position: relative;
         }
-        .ressource-item:hover { background: rgba(131, 56, 236, 0.1); border-color: var(--accent); }
-        .res-code { font-weight: bold; color: var(--accent-pink); width: 60px; }
-        .res-name { flex-grow: 1; margin-left: 20px; }
+        .res-item:hover { transform: translateX(10px); background: rgba(255,255,255,0.05); }
+        .res-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .res-code { font-family: 'Fira Code', monospace; color: var(--secondary); font-weight: bold; }
+        .res-name { font-weight: 700; font-size: 1.05rem; }
+        .res-desc { font-size: 0.85rem; color: var(--text-mute); }
 
-        /* Modal / Detail Panel */
-        #detail-panel {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(0.9);
-            width: 90%; max-width: 600px;
-            background: #0a0e27;
-            border: 2px solid var(--accent);
-            padding: 30px;
-            border-radius: 15px;
-            z-index: 100;
-            display: none;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-        }
-        #detail-panel.active { display: block; transform: translate(-50%, -50%) scale(1); animation: fadeIn 0.3s ease; }
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 99; display: none;
-        }
-        .close-btn { position: absolute; top: 15px; right: 15px; cursor: pointer; color: var(--accent-pink); font-weight: bold; }
+        .tag-list { display: flex; gap: 8px; margin-top: 12px; }
+        .tag { font-size: 0.65rem; padding: 2px 8px; border-radius: 4px; background: rgba(255,255,255,0.1); color: var(--text-mute); text-transform: uppercase; font-weight: bold; }
+        .tag.highlight { background: var(--primary); color: white; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* UTILS */
+        .dim { opacity: 0.2; filter: grayscale(1); }
 
-        .tag {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            padding: 2px 10px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin: 5px 5px 0 0;
-            font-family: 'Orbitron';
+        @media (max-width: 900px) {
+            .dashboard { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-grid"></div>
+<div class="container">
+    <header>
+        <span class="badge">Session 2025 - 2026</span>
+        <h1>SYSTÈMES & RÉSEAUX<br><span style="color: var(--primary)">COMPÉTENCES.</span></h1>
+        <p class="hero-desc">Bilan d'apprentissage et corrélation avec le Programme National (PN) du Bachelor Universitaire de Technologie R&T.</p>
+    </header>
 
-    <div class="container">
-        <header>
-            <p class="subtitle">B.U.T. Réseaux & Télécommunications</p>
-            <h1>PORTFOLIO SYSTÈME & RÉSEAU</h1>
-        </header>
+    <div class="dashboard">
+        <div class="side">
+            <h2 class="section-title">Référentiel National</h2>
+            
+            <div class="comp-card" onclick="filterByComp('C1')" id="C1">
+                <div class="badge" style="margin:0; font-size: 0.6rem;">RT1-C1</div>
+                <h3>ADMINISTRER</h3>
+                <p style="font-size: 0.85rem;">Réseaux et services Internet.</p>
+                <div class="bilan-text">
+                    <strong>Bilan technique :</strong> Maîtrise des couches 2 et 3. Capacité à déployer des infrastructures virtuelles et physiques sous Cisco IOS. Gestion avancée de l'adressage IPv4 et des services critiques (DHCP/DNS).
+                </div>
+            </div>
 
-        <h2 class="section-title">MES COMPÉTENCES (PN)</h2>
-        <div class="comp-grid">
-            <div class="comp-card">
-                <h3>RT1-C1 : Administrer</h3>
-                <p>Administrer les réseaux et l’Internet.</p>
-                <div class="bilan">
-                    <strong>Bilan :</strong> Capable de configurer des services réseaux de base (DHCP, DNS) et d'assurer la connectivité de niveau 3. Maîtrise de l'administration système Linux/Windows.
+            <div class="comp-card" onclick="filterByComp('C2')" id="C2">
+                <div class="badge" style="margin:0; font-size: 0.6rem;">RT1-C2</div>
+                <h3>CONNECTER</h3>
+                <p style="font-size: 0.85rem;">Entreprises et Usagers.</p>
+                <div class="bilan-text">
+                    <strong>Bilan technique :</strong> Aptitude à concevoir des solutions de connectivité sécurisées (VLANs, routage inter-VLAN). Compréhension des enjeux de la transmission de signaux.
                 </div>
             </div>
-            <div class="comp-card">
-                <h3>RT1-C2 : Connecter</h3>
-                <p>Connecter les entreprises et les usagers.</p>
-                <div class="bilan">
-                    <strong>Bilan :</strong> Maîtrise du câblage structuré, de la configuration de commutateurs (VLAN) et des bases de la téléphonie IP.
+
+            <div class="comp-card" onclick="filterByComp('C3')" id="C3">
+                <div class="badge" style="margin:0; font-size: 0.6rem;">RT1-C3</div>
+                <h3>CRÉER</h3>
+                <p style="font-size: 0.85rem;">Outils & Applications RT.</p>
+                <div class="bilan-text">
+                    <strong>Bilan technique :</strong> Automatisation via Python et Bash. Création de tableaux de bord de supervision web. Gestion de bases de données structurées pour le monitoring.
                 </div>
             </div>
-            <div class="comp-card">
-                <h3>RT1-C3 : Créer</h3>
-                <p>Créer des outils et applications informatiques.</p>
-                <div class="bilan">
-                    <strong>Bilan :</strong> Développement de scripts d'automatisation en Python et création d'interfaces web dynamiques pour la gestion de données.
-                </div>
-            </div>
+            
+            <button onclick="resetFilter()" style="background:none; border:none; color:var(--primary); cursor:pointer; font-family: 'Fira Code'; font-size:0.8rem; text-decoration: underline;">[ RÉINITIALISER LES FILTRES ]</button>
         </div>
 
-        <h2 class="section-title">RESSOURCES & APPRENTISSAGES</h2>
-        <div class="ressource-list" id="res-container">
-            </div>
+        <div class="main-side">
+            <h2 class="section-title">Ressources & Apprentissages</h2>
+            <div id="resources-grid"></div>
+        </div>
     </div>
+</div>
 
-    <div class="overlay" id="overlay"></div>
-    <div id="detail-panel">
-        <span class="close-btn" id="close">X FERMER</span>
-        <h2 id="modal-title" style="color: var(--accent-pink); font-family: 'Orbitron';"></h2>
-        <p id="modal-desc" style="margin: 15px 0; color: var(--text);"></p>
-        <hr style="border: 0; border-top: 1px solid #333; margin: 15px 0;">
-        <h4 style="font-family: 'Orbitron'; font-size: 0.9rem;">COMPÉTENCES VISÉES (PN) :</h4>
-        <div id="modal-tags"></div>
-    </div>
-
-    <script>
-        // DONNÉES DES RESSOURCES
-        const ressources = [
-            {
-                code: "R201",
-                nom: "Technologie de l'Internet",
-                description: "Étude approfondie du modèle TCP/IP, du routage statique et dynamique. Mise en œuvre de protocoles de communication standard.",
-                competences: ["RT1-C1", "RT1-C2"]
-            },
-            {
-                code: "R202",
-                nom: "Administration système",
-                description: "Installation et configuration de serveurs Windows et Linux. Gestion des droits, des utilisateurs et des services critiques.",
-                competences: ["RT1-C1"]
-            },
-            {
-                code: "R209",
-                nom: "Initiation au développement Web",
-                description: "Apprentissage du HTML5, CSS3 et JavaScript pour créer des interfaces d'administration et de monitoring.",
-                competences: ["RT1-C3"]
-            },
-            {
-                code: "R210",
-                nom: "Anglais Technique",
-                description: "Communication professionnelle en milieu international. Rédaction de documentations techniques et rapports d'incidents.",
-                competences: ["RT1-C1", "RT1-C2"]
-            },
-            {
-                code: "R213",
-                nom: "Mathématiques des systèmes",
-                description: "Outils mathématiques pour le traitement du signal et l'analyse de données réseaux.",
-                competences: ["RT1-C2", "RT1-C3"]
-            }
-        ];
-
-        const container = document.getElementById('res-container');
-        const overlay = document.getElementById('overlay');
-        const panel = document.getElementById('detail-panel');
-        const closeBtn = document.getElementById('close');
-
-        // GÉNÉRATION DE LA LISTE
-        ressources.forEach(res => {
-            const div = document.createElement('div');
-            div.className = 'ressource-item';
-            div.innerHTML = `
-                <span class="res-code">${res.code}</span>
-                <span class="res-name">${res.nom}</span>
-                <span style="color: var(--accent)">+ Détails</span>
-            `;
-            div.onclick = () => showDetail(res);
-            container.appendChild(div);
-        });
-
-        // FONCTION AFFICHAGE MODAL
-        function showDetail(res) {
-            document.getElementById('modal-title').innerText = `${res.code} - ${res.nom}`;
-            document.getElementById('modal-desc').innerText = res.description;
-            
-            const tagContainer = document.getElementById('modal-tags');
-            tagContainer.innerHTML = '';
-            res.competences.forEach(c => {
-                const span = document.createElement('span');
-                span.className = 'tag';
-                span.innerText = c;
-                tagContainer.appendChild(span);
-            });
-
-            overlay.style.display = 'block';
-            panel.classList.add('active');
+<script>
+    const data = [
+        {
+            code: "R201",
+            nom: "Technologie de l'Internet",
+            desc: "Modèle OSI, protocoles TCP/UDP, routage statique. Configuration de passerelles et gestion des tables de routage.",
+            comps: ["C1", "C2"]
+        },
+        {
+            code: "R202",
+            nom: "Administration Système",
+            desc: "Déploiement de serveurs (Active Directory, Linux Debian). Scripting d'automatisation des tâches récurrentes.",
+            comps: ["C1"]
+        },
+        {
+            code: "R204",
+            nom: "Téléphonie d'Entreprise",
+            desc: "Architecture ToIP. Mise en place d'un IP-PBX (Asterisk) et configuration de terminaux SIP.",
+            comps: ["C2"]
+        },
+        {
+            code: "R209",
+            nom: "Développement Web",
+            desc: "Interfaces full-stack pour le pilotage d'équipements réseaux à distance via API.",
+            comps: ["C3"]
+        },
+        {
+            code: "R210",
+            nom: "Anglais Technique",
+            desc: "Support technique client et rédaction de documentations normées RFC en anglais.",
+            comps: ["C1", "C2", "C3"]
+        },
+        {
+            code: "R213",
+            nom: "Mathématiques Systèmes numériques",
+            desc: "Logique booléenne, calcul matriciel appliqué à la cybersécurité et au signal.",
+            comps: ["C3"]
         }
+    ];
 
-        // FERMETURE
-        closeBtn.onclick = () => {
-            overlay.style.display = 'none';
-            panel.classList.remove('active');
-        };
-        overlay.onclick = closeBtn.onclick;
+    const resGrid = document.getElementById('resources-grid');
 
-    </script>
+    function render(filter = null) {
+        resGrid.innerHTML = '';
+        data.forEach(item => {
+            const isDimmed = filter && !item.comps.includes(filter);
+            const div = document.createElement('div');
+            div.className = `res-item ${isDimmed ? 'dim' : ''}`;
+            
+            div.innerHTML = `
+                <div class="res-header">
+                    <span class="res-code">${item.code}</span>
+                    <span class="res-name">${item.nom}</span>
+                </div>
+                <p class="res-desc">${item.desc}</p>
+                <div class="tag-list">
+                    ${item.comps.map(c => `<span class="tag ${filter === c ? 'highlight' : ''}">${c}</span>`).join('')}
+                </div>
+            `;
+            resGrid.appendChild(div);
+        });
+    }
+
+    function filterByComp(compId) {
+        // UI Update
+        document.querySelectorAll('.comp-card').forEach(c => c.classList.remove('active'));
+        document.getElementById(compId).classList.add('active');
+        // Render
+        render(compId);
+    }
+
+    function resetFilter() {
+        document.querySelectorAll('.comp-card').forEach(c => c.classList.remove('active'));
+        render();
+    }
+
+    // Initial render
+    render();
+</script>
+
 </body>
 </html>
